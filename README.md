@@ -1,8 +1,6 @@
-# WorldsRL
-A primitive roguelike engine, intended as a starting point for roguelike projects.
+# UntitledRL
+An experimental roguelike that uses the doobeess/roguelike-engine base code.
 
-### Current features
+### Credits
 
-+ Game map and FOV
-+ Entity and creature system; basic hostility
-+ Items, inventory UI
+The code is largely based on the TCOD Roguelike Tutorial at rogueliketutorials.com.
