@@ -1,5 +1,12 @@
-from typing import Tuple
+from __future__ import annotations
 
+import copy
+from typing import Tuple, TypeVar, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from game_map import GameMap
+
+T = TypeVar("T", bound="Entity")
 
 class Entity:
     """
@@ -22,3 +29,11 @@ class Entity:
         # Move the entity by a given amount
         self.x += dx
         self.y += dy
+
+    def spawn(self: T, gamemap: GameMap, x: int, y: int) -> T:
+        """Spawn a copy of this instance at the given location."""
+        clone = copy.deepcopy(self)
+        clone.x = x
+        clone.y = y
+        gamemap.entities.append(clone)
+        return clone

@@ -2,6 +2,10 @@ from tcod.context import Context
 from tcod.console import Console
 from tcod.map import compute_fov
 
+from creature import Creature
+
+from misc import all_of_type
+
 import tcod
 
 from typing import Set, Iterable, Any
@@ -73,7 +77,7 @@ class Engine:
         del self.screen_handler_list[-1]
 
     def creatures_act(self):
-        for creature in self.game_map.creatures:
+        for creature in all_of_type(Creature, self.game_map.entities):
             action = creature.act(self)
             action.perform(self, creature, self.message_log)
 
@@ -105,13 +109,10 @@ class Engine:
             if turn_code > 0:
                 if turn_code > 1:
                     new_creatures = []
-                    for creature in self.game_map.creatures:
-                        if not creature.is_dead():
-                            new_creatures.append(creature)
-                        else:
+                    for creature in all_of_type(Creature, self.game_map.entities):
+                        if creature.is_dead():
+                            self.game_map.entities.remove(creature)
                             self.message_log.log(f"You defeated the {creature.name}!")
-                
-                    self.game_map.creatures = new_creatures
                             
                     self.creatures_act()
 

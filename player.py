@@ -9,13 +9,13 @@ class Player(Fighter):
 
     def pick_up(self, item, game_map):
         self.inventory.append(item)
-        game_map.items.remove(item)
+        game_map.entities.remove(item)
 
     def drop(self, item, game_map):
         self.inventory.remove(item)
         item.x = self.x
         item.y = self.y
-        game_map.items.append(item)
+        game_map.entities.append(item)
 
     def has_items(self):
         if len(self.inventory) > 0:

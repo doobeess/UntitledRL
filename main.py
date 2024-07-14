@@ -3,6 +3,7 @@ import tcod
 from engine import Engine
 
 from game_map import GameMap
+from procgen import generate_dungeon
 
 from player import Player
 
@@ -39,7 +40,20 @@ def main() -> None:
         
         player = Player(5,5, 20)
 
-        game_map = GameMap(map_width, map_height)
+        max_rooms = 20
+        room_min_size = 5
+        room_max_size = 10
+        max_monsters_per_room = 2
+
+        game_map = generate_dungeon(
+            max_rooms=max_rooms,
+            room_min_size=room_min_size,
+            room_max_size=room_max_size,
+            max_monsters_per_room=max_monsters_per_room,
+            map_width=map_width,
+            map_height=map_height,
+            player=player
+        )
 
         screen_handler = MainGameScreenHandler()
         
